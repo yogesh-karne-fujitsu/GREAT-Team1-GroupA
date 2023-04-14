@@ -1,4 +1,4 @@
-package com.Spring.TrainingStatusApp;
+package com.spring.TrainingStatusApp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
