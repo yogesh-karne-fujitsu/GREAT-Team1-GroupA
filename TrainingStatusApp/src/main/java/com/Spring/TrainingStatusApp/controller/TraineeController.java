@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TraineeController 
 {
 	
-	@RequestMapping(value = "/login",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin",method = RequestMethod.GET)
 	public String traineepage() {
-		return "login";
+		return "admin";
 		}
 
 }
