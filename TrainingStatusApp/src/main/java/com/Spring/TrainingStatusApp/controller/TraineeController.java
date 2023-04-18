@@ -1,4 +1,4 @@
-package com.spring.TrainingStatusApp.controller;
+package com.Spring.TrainingStatusApp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
