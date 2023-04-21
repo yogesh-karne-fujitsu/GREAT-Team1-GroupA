@@ -1,4 +1,4 @@
-package com.Spring.TrainingStatusApp;
+package com.spring.TrainingStatusApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
