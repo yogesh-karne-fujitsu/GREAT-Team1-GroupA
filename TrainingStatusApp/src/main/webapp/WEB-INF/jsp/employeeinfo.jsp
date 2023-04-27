@@ -14,7 +14,7 @@
     <style>
 
 body{ 
-background-color: rgb(234, 232, 232);
+background-color: rgb(245, 245, 245);
 padding: 5%;                                    
 }
 
