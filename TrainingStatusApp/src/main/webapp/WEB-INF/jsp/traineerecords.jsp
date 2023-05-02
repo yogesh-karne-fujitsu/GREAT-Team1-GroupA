@@ -17,6 +17,8 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	
+
 <meta charset="ISO-8859-1">
 
 <title>Trainee Records</title>
@@ -91,7 +93,7 @@ tr, center5 { <
 	>
 }
 html {zoom: 80%;} 
-body  {
+body {
 	background-color: rgb(234, 232, 232);
 	padding: 3%;
 	background: url(https://cdn.dribbble.com/users/3419046/screenshots/15428526/fujitsu-800_600.gif);
@@ -104,7 +106,7 @@ body  {
 
 }
 
-body  {
+body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -197,7 +199,6 @@ to {
 	.modal-content {
 		width: 100%;
 	}
-
 }
 </style>
 <body class="container-fluid">
@@ -234,9 +235,13 @@ to {
 			<td style=" text-align:center"><label><b>SABA SCREENSHOT</b></label></td>
 			<td style=" text-align:center"><label><b>MAIL SCREENSHOT</b></label></td>
 			<td style=" text-align:center"><label><b>TEST SCREENSHOT</b></label></td>
+			<td style=" text-align:center"><label><b>APPROVE</b></label></td>
+			<td style=" text-align:center"><label><b>REJECT</b></label></td>
+			<td style=" text-align:center"><label><b>        </b></label></td>
 				
 		</tr>
-
+		<h3 style="color: red">${errorMsg}</h3>
+		<h5 style="color: red">${sentMail}</h5>
 		<c:forEach items="${usersList}" var="user">
 			<form method="post" action="approve">
 
@@ -274,25 +279,38 @@ to {
 						style="width: 100%; max-width: 300px"></td>
 						
 					<td>
-						<button type="submit" class="btn btn-outline-success" value="A"
-							name="status">APPROVE</button>
+					<button type="submit"  id="approveButton" class="btn btn-outline-success" value="A" name="status">APPROVE</button>
+					</td>
+					<td >
+					<input type="hidden" name="mailId" value="${user.mailId}" />
+		            <input type="hidden" name="courseId" value="${user.courseId}" />
+		            <input type="hidden" name="courseName" value="${user.courseName}" />
+					<button id="rejectButton" class="btn btn-outline-danger" value="R" name="status" >REJECT</button>
 					</td>
 					<td>
-						<button class="btn btn-outline-danger" value="R" name="status" >REJECT</button>
+					   <input size="10" name="description" id="description" style="height:34px" placeholder="Reject Reason" >
 					</td>
+
+					</form>
+					<script>
+					   var approveButton = document.getElementById("approveButton");
+					   var rejectButton = document.getElementById("rejectButton");
+					   var descriptionInput = document.getElementById("description");
+					
+					   approveButton.addEventListener("click", function() {
+					      descriptionInput.removeAttribute("required");
+					   });
+					
+					   rejectButton.addEventListener("click", function() {
+					      descriptionInput.setAttribute("required", "required");
+					   });
+					</script>
 					
 					<div class="modal">
 						<span class="close">&times;</span> <img class="modalImage"
 							id="img01">
 
 					</div>
-					</form>
-					
-					<td>
-					<form id="Back" align="right" method="GET" action="Mail" target="_blank">
- 						<button type="Back" class="btn btn-outline-warning" >MAIL</button>
-  					</form>
-  					</td>
 					</center5>
 				</tr>
 
@@ -309,8 +327,9 @@ document.querySelector(".close").addEventListener("click", () => {
    modalEle.style.display = "none";
 });
 </script>
-			
+		
 		</c:forEach>
+		
 
 	</table>
 
