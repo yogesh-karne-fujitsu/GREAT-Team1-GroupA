@@ -10,12 +10,13 @@ font-family : san-serif;
 }
 
 body{
-background: url(https://cdn.dribbble.com/users/3419046/screenshots/15428526/fujitsu-800_600.gif);
-               background-color: rgb(255, 229, 180); 
-               background-size: 40% 40%, 20% 30%;
-               background-position:  left top,left top;
+background: url(https://wallpapercave.com/wp/wp2084254.jpg);
+               background-color: rgb(234, 232, 232); 
+               background-size: 100% 100%;
+               background-position:  left top;
                background-repeat: no-repeat;
-                padding: 10%;        
+                padding: 0%;     
+}   
 }
 
 body .hero{
@@ -33,8 +34,8 @@ position :relative;
     position: relative;
     margin: 6% auto;
 	background-color: hsla(0, 0%, 100%, 0.9) !important;
-	backdrop-filter: saturate(200%) blur(5px);
-    padding : 5px;
+	backdrop-filter: saturate(500%) blur(50px);
+    padding : 5px ;
     overflow: hidden;
 }
 

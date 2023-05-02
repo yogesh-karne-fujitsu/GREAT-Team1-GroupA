@@ -369,7 +369,7 @@ nav li {
 				System.out.println(val);
 				
 				%>
-            </td>
+           <td>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<button type="submit" value='Submit' name='Submit'
 								class="btn btn-danger btn-m" onClick='return confirmSubmit()'>Submit</button>

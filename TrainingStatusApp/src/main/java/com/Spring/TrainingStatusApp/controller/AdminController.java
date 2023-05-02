@@ -33,10 +33,11 @@ public class AdminController {
 	CourseService courseService;
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private JavaMailSender mailSender;
+	
 	
 	@Autowired
-	private JavaMailSender mailSender;
+	private JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value = "/Adminlogin", method = RequestMethod.POST)
 	public String login(@ModelAttribute("adminlogin") AdminLogin adminlogin, ModelMap model) 
@@ -64,7 +65,7 @@ public class AdminController {
 		String empID = req.getParameter("empID");
 		String subDate = req.getParameter("subDate");
 		
-		System.out.println("in response page");
+		System.out.println("Control Handling image1");
 		List<Trainee> traineesList = traineeService.getTrainees(batName, empID, subDate, approver);
 		
 		System.out.println("List- " + traineesList);
@@ -74,7 +75,9 @@ public class AdminController {
 		model.put("empBatch", batName);
 		model.put("empId", empID);
 
-		// model.put("successMsg","Return from response page");
+		if (traineesList.size() == 0) {
+			model.put("errorMsg", "No record available");
+		}
 		return "traineerecords";
 	}
 	@RequestMapping(value = "/approve", method = RequestMethod.POST)
@@ -88,7 +91,7 @@ public class AdminController {
 		String empId = req.getParameter("empId");
 		String csId = req.getParameter("csId");
 		String status = req.getParameter("status");
-		System.out.println("in approve page");
+
 		System.out.println("Employee Id -->" + empId);
 		System.out.println("Course Id -->" + csId);
 		System.out.println("Rec status-->" + status);
@@ -107,37 +110,36 @@ public class AdminController {
 		model.put("empId", emId);
 		System.out.println("Tot size -> " + traineesList.size());
 
-		if (traineesList.size() == 0) {
-			model.put("errorMsg", "No record available");
-		}
-
-		return "traineerecords";
-	}
-    @RequestMapping(value = "/Mail", method = RequestMethod.GET)
-    public String mailPage() {
-    	System.out.println("in mail");
-    	return "sendMail";
-    	
-    }
-    @RequestMapping(value = "/Mail", method = RequestMethod.POST)
-    public String submitmail(HttpServletRequest request) {
-    	
-    	System.out.println("in mail");
-    	String mailId = request.getParameter("mailId");
-		String description = request.getParameter("description");
+		if(status.equals("R")) {
+			
+		System.out.println("in mail");
+		String mailId = req.getParameter("mailId");
+		String description = req.getParameter("description");
+		String courseId = req.getParameter("courseId");
+		String courseName = req.getParameter("courseName");
+		String body="Dear Sir/Madam,\n \n Your Application for training has been Rejected\n\n\n"
+				+ "CourseId : " + courseId +"\n\n"
+				+ courseName + "\n \nApprover comments : " + description + "\n\n\n\n Note: This is a system generated response. DO NOT reply to this mail\r\n"
+						+ "\r\n"
+						+ "Regards,\r\n"
+						+ "\r\n"
+						+ "Training Status App";
 		
 		SimpleMailMessage message=new SimpleMailMessage();
-		message.setFrom ("learningupdate123gmail.com");
+		message.setFrom ("space.walker0902@gmail.com");
 		message.setTo(mailId);
-		message.setText (description);
+		message.setText (body);
 		message.setSubject ("Training Status App");
 		
 		mailSender.send(message);
+		model.put("sentMail", "Mail Sent");
 		
-		return "message";
-    	
-    }
-	
+	}
+		if (traineesList.size() == 0) {
+			model.put("errorMsg", "No record available");
+		}
+		return "traineerecords";
+	}
 	
 	@RequestMapping(value = "/logoutToAdmin", method = RequestMethod.GET)
 	public String adminpage1() {
